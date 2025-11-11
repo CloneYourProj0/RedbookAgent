@@ -1,3 +1,10 @@
 profiles/
 debug/
 debug copy/
+# Ignore local images, crash dumps, editors
+*.png
+*.jpg
+*.jpeg
+*.gif
+core.*
+*.swp

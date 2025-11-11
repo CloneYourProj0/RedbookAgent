@@ -21,6 +21,7 @@ from xhs_mcp.xhs.publish import (
 )
 from xhs_mcp.xhs.user_profile import UserProfileAction
 
+from scripts import clean_array
 
 app = typer.Typer(help="Manual testing CLI for action layer")
 
@@ -93,7 +94,7 @@ def feeds_list(
     def handler(ctx: ActionContext) -> None:
         action = FeedsListAction(ctx)
         feeds: list[Feed] = action.get_feeds()
-        _print_json([feed.raw for feed in feeds])
+        _print_json(clean_array.clean_xsec_tokens([feed.raw for feed in feeds]))
 
     _run_with_page(profile, cookies_path, bin, handler, debug_dir, trace)
 
@@ -112,7 +113,7 @@ def search(
     def handler(ctx: ActionContext) -> None:
         action = SearchAction(ctx)
         feeds = action.search(keyword)
-        _print_json([feed.raw for feed in feeds])
+        _print_json(clean_array.clean_xsec_tokens([feed.raw for feed in feeds]))
 
     _run_with_page(profile, cookies_path, bin, handler, debug_dir, trace)
 
